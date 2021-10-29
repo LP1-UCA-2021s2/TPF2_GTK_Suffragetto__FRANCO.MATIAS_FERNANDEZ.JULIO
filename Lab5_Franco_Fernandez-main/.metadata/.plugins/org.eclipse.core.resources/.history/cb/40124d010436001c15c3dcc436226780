@@ -1,0 +1,722 @@
+/*
+ ============================================================================
+ Name        : GTKTablero.c
+ Author      : 
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in GTK+
+ ============================================================================
+ */
+
+#include <gtk/gtk.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
+#include "Funciones_Suffrag.h"
+
+
+#define MAX_FILA (17)
+#define MAX_COLUMNA (17)
+
+
+int modo = 0;
+int turno = 0;
+int bandos[2] = {0,0};
+int bandera = 0;
+int coor[2] = {0,0};
+int B = 0;
+int cont = 0;
+
+
+
+
+int Tablero[17][17] = {
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{1,0,0,0,0,0,4,1,6,6,4,0,0,0,0,0,0},
+	{0,0,0,0,3,4,4,1,6,6,4,4,3,0,0,0,0},
+	{0,0,3,4,4,4,4,4,3,4,4,4,4,4,3,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,3,0,4,0,3,0,0,0,0,0,0},
+	{0,0,1,2,2,2,2,2,1,2,2,2,2,2,1,0,0},
+	{0,0,0,0,1,2,2,5,1,5,2,2,1,0,0,0,0},
+	{0,0,0,0,0,0,2,5,5,5,2,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+	{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+};
+
+
+
+
+
+
+
+GtkWidget *principal;
+GtkWidget *jugar_btn;
+GtkWidget *reglas_btn1;
+GtkWidget *estat_btn1;
+GtkWidget *creditos_btn1;
+GtkWidget *salir_btn;
+GtkWidget *window;
+GtkWidget *box_tablero;
+
+GtkDialog *v_jugar;
+GtkDialog *v_reglas;
+GtkDialog *v_creditos;
+GtkDialog *v_estadisticas;
+GtkDialog *v_nombres;
+GtkWidget *atras_btn;
+GtkWidget *nuevo_juego;
+GtkWidget *continuar_juego;
+GtkWidget *nombre_1;
+GtkWidget *nombre_2;
+GtkWidget *sgtn_B;
+GtkWidget *cerrar_reglas;
+GtkWidget *cerrar_credits;
+
+GtkWidget *vtn_modo_juego;
+GtkWidget *btn_a1;
+GtkWidget *btn_a2;
+GtkWidget *btn_a3;
+GtkWidget *btn_next1;
+GtkWidget *vtn_bando;
+GtkWidget *btn_b1;
+GtkWidget *btn_b2;
+GtkWidget *btn_b3;
+GtkWidget *btn_next2;
+GtkWidget *vtn_turno;
+GtkWidget *btn_c1;
+GtkWidget *btn_c2;
+GtkWidget *btn_c3;
+GtkWidget *btn_next3;
+
+GtkWidget *Boton_Siguiente;
+
+GtkWidget *label_jug1;
+GtkWidget *nom_jug_y;
+GtkWidget *nom_jug_x;
+GtkWidget *mensaje_modo_select;
+GtkWidget *mensaje_bando_select;
+GtkWidget *mensaje_turno_select;
+GtkWidget *label_jug2;
+GtkWidget *mensaje_v_bandos;
+
+GtkBuilder *builder;
+
+
+
+
+
+void Boton_Siguiente_en_el_Juego(GtkWidget *widget, gpointer data){
+	if(bandera==1){
+		bandera = 0;
+	}
+	if(turno==1){
+		turno = 2;
+	}else{
+		turno = 1;
+	}
+	g_print("\n bandera = %d \n",bandera);
+}
+
+void ventana_jugar(GtkWidget *widget, gpointer data){
+	gtk_dialog_run(v_jugar);
+}
+
+void Juego_Nuevo(GtkWidget *widget, gpointer data){
+	gtk_widget_hide(principal);
+	gtk_widget_hide(v_jugar);
+	gtk_widget_show_all(vtn_modo_juego);
+}
+
+
+void modo_uno(GtkWidget *widget, gpointer data){
+	modo = 1;
+	g_print("\n modo = %d \n",modo);
+	g_print("\n La modalidad de juego elegida es: Usuario vs. Usuario. \n");
+	const gchar *text = g_strdup_printf("La modalidad de juego elegida es:  Usuario vs. Usuario.");
+
+	gtk_label_set_text(GTK_LABEL(mensaje_modo_select), text);
+}
+
+void modo_dos(GtkWidget *widget, gpointer data){
+	modo = 2;
+	g_print("\n modo = %d \n",modo);
+	g_print("\n La modalidad de juego elegida es: Usuario vs. Computadora. \n");
+	const gchar *text = g_strdup_printf("La modalidad de juego elegida es:  Usuario vs. Computadora.");
+
+	gtk_label_set_text(GTK_LABEL(mensaje_modo_select), text);
+}
+
+void modo_tres(GtkWidget *widget, gpointer data){
+	modo = 3;
+	g_print("\n modo = %d \n",modo);
+	g_print("\n La modalidad de juego elegida es: Computadora vs. Computadora. \n");
+	const gchar *text = g_strdup_printf("La modalidad de juego elegida es:  Computadora vs. Computadora.");
+
+	gtk_label_set_text(GTK_LABEL(mensaje_modo_select), text);
+
+}
+
+
+
+
+
+void btn_atras_en_jugar(GtkWidget *widget, gpointer data){
+	gtk_widget_hide(v_jugar);
+}
+
+
+void mostrar_reglas(GtkWidget *widget, gpointer data){
+	gtk_dialog_run(v_reglas);
+}
+
+void mostrar_estadisticas(GtkWidget *widget, gpointer data){
+	gtk_dialog_run(v_estadisticas);
+}
+
+void mostrar_creditos(GtkWidget *widget, gpointer data){
+	gtk_dialog_run(v_creditos);
+}
+
+
+void ocultar_reglas(GtkWidget *widget, gpointer data){
+	gtk_widget_hide(v_reglas);
+}
+
+void ocultar_creditos(GtkWidget *widget, gpointer data){
+	gtk_widget_hide(v_creditos);
+}
+
+void set_nombres(){
+	if(modo==1){
+		gtk_entry_set_text( GTK_ENTRY ( nombre_1 ), "Usuario_1");
+		gtk_entry_set_text( GTK_ENTRY ( nombre_2 ), "Usuario_2");
+	}
+	if(modo==2){
+		gtk_entry_set_text( GTK_ENTRY ( nombre_1 ), "Computadora");
+		gtk_entry_set_text( GTK_ENTRY ( nombre_2 ), "Usuario");
+	}
+	if(modo==3){
+		gtk_entry_set_text( GTK_ENTRY ( nombre_1 ), "Computadora_1");
+		gtk_entry_set_text( GTK_ENTRY ( nombre_2 ), "Computadora_2");
+	}
+
+}
+
+void siguiente_en_v_nombres(GtkWidget *widget, gpointer data){
+	nombre1 = gtk_entry_get_text( GTK_ENTRY ( nombre_1 ) );
+	gtk_label_set_text(GTK_LABEL(label_jug1), nombre1);
+
+	g_print("\n text1 = %s\n",nombre1);
+
+	nombre2 = gtk_entry_get_text( GTK_ENTRY ( nombre_2 ) );
+	gtk_label_set_text(GTK_LABEL(label_jug2), nombre2);
+
+	g_print("\n text2 = %s\n",nombre2);
+
+	const gchar *temp;
+	if(modo==1){
+		temp = g_strdup_printf("Elija el bando de %s ",nombre2);
+		gtk_label_set_text(GTK_LABEL(mensaje_v_bandos), temp);
+	}
+	if(modo==3){
+		temp = g_strdup_printf("Elija el bando de %s ",nombre2);
+		gtk_label_set_text(GTK_LABEL(mensaje_v_bandos), temp);
+	}
+
+	gtk_widget_hide(v_nombres);
+	gtk_widget_show_all(vtn_bando);
+
+}
+
+
+
+
+void clicked_bando_suffragetto(GtkWidget *widget, gpointer data){
+	bandos[1] = 3;
+	bandos[0] = 1;
+	g_print("\nEl Jugador 2 es equipo Suffragettes. El Jugador 1 es equipo Policias.\n");
+	g_print("bandos[0] = %d \nbandos[1] = %d",bandos[0],bandos[1]);
+	const gchar *text = g_strdup_printf(" %s es equipo Suffragettes.  %s es equipo Policias.",nombre2,nombre1);
+
+	gtk_label_set_text(GTK_LABEL(mensaje_bando_select), text);
+
+}
+
+void clicked_bando_policia(GtkWidget *widget, gpointer data){
+	bandos[1] = 1;
+	bandos[0] = 3;
+	g_print("\nEl Jugador 2 es equipo Policias. El Jugador 1 es equipo Suffragettes.\n");
+	g_print("bandos[0] = %d \nbandos[1] = %d",bandos[0],bandos[1]);
+	const gchar *text = g_strdup_printf(" %s es equipo Policias.  %s es equipo Suffragettes.",nombre2,nombre1);
+	gtk_label_set_text(GTK_LABEL(mensaje_bando_select), text);
+
+}
+
+void clicked_bando_aleatorio(GtkWidget *widget, gpointer data){
+	const gchar *text;
+	bandos[1] = (rand()%2)+1;  //Seleccion aleatoria junto con un srand(time(NULL)) en el main
+	if(bandos[1]==1){
+		bandos[0] = 3;
+		g_print("\nEl Jugador 2 es equipo Policias. El Jugador 1 es equipo Suffragettes.\n");
+		text = g_strdup_printf(" %s es equipo Policias.  %s es equipo Suffragettes.",nombre2,nombre1);
+		gtk_label_set_text(GTK_LABEL(mensaje_bando_select), text);
+	}else{
+		bandos[0] = 1;
+		bandos[1] = 3;
+		g_print("\nEl Jugador 2 es equipo Suffragettes. El Jugador 1 es equipo Policias.\n");
+		text = g_strdup_printf(" %s es equipo Suffragettes.  %s es equipo Policias.",nombre2,nombre1);
+		gtk_label_set_text(GTK_LABEL(mensaje_bando_select), text);
+	}
+	g_print("bandos[0] = %d \nbandos[1] = %d",bandos[0],bandos[1]);
+}
+
+void clicked_siguiente(GtkWidget *widget, gpointer data){
+	if(turno==0 && bandos[0]!=0){
+		gtk_widget_show_all(vtn_turno);
+		gtk_widget_hide(vtn_bando);
+	}
+	if(turno!=0 && modo!=0 && bandos[0]!=0 ){
+		gtk_widget_hide(vtn_turno);
+		gtk_widget_show_all(window);
+		gtk_dialog_run(v_reglas);
+	}
+}
+
+void siguiente_en_modo_juego(GtkWidget *widget, gpointer data){
+	if(modo!=0){
+		gtk_widget_show_all(v_nombres);
+		gtk_widget_hide(vtn_modo_juego);
+		set_nombres();
+	}
+}
+
+
+
+void clicked_comienza_jugador_1(GtkWidget *widget, gpointer data){
+	turno = 1;
+	g_print("\n\nEl Jugador 1 empieza. \nTurno = %d ",turno);
+	const gchar *text = g_strdup_printf(" %s empieza.",nombre1);
+	if(turno==1 && bandos[0]==3){
+		gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre1);
+		gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre2);
+	}else{
+		gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre1);
+		gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre2);
+	}
+
+	gtk_label_set_text(GTK_LABEL(mensaje_turno_select), text);
+	gtk_label_set_text(GTK_LABEL(label_turno), nombre1);
+}
+
+void clicked_comienza_jugador_2(GtkWidget *widget, gpointer data){
+	turno = 2;
+	g_print("\n\nEl Jugador 2 empieza. \nTurno = %d ",turno);
+	const gchar *text = g_strdup_printf(" %s empieza.",nombre2);
+	if(turno==2 && bandos[1]==3){
+		gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre2);
+		gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre1);
+	}else{
+		gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre2);
+		gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre1);
+	}
+
+	gtk_label_set_text(GTK_LABEL(mensaje_turno_select), text);
+	gtk_label_set_text(GTK_LABEL(label_turno), nombre2);
+}
+
+void clicked_comienza_aleatorio(GtkWidget *widget, gpointer data){
+	const gchar *text;
+	turno = (rand()%2)+1;		//Seleccion aleatoria junto con un srand(time(NULL)) en el main
+	if(turno == 1){
+		g_print("\n\nEl Jugador 1 empieza. \nTurno = %d ",turno);
+		text = g_strdup_printf(" %s empieza.",nombre1);
+		gtk_label_set_text(GTK_LABEL(mensaje_turno_select), text);
+		if(bandos[0]==3){
+			gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre2);
+			gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre1);
+		}else{
+			gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre2);
+			gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre1);
+		}
+		gtk_label_set_text(GTK_LABEL(label_turno), nombre1);
+	}else{
+		g_print("\n\nEl Jugador 2 empieza. \nTurno = %d ",turno);
+		text = g_strdup_printf(" %s empieza.",nombre2);
+		gtk_label_set_text(GTK_LABEL(mensaje_turno_select), text);
+		if(bandos[1]==3){
+			gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre2);
+			gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre1);
+		}else{
+			gtk_label_set_text(GTK_LABEL(nom_jug_x), nombre2);
+			gtk_label_set_text(GTK_LABEL(nom_jug_y), nombre1);
+		}
+		gtk_label_set_text(GTK_LABEL(label_turno), nombre2);
+	}
+}
+
+
+
+
+
+//Un vector de Strings, almacena ubicacion de imagenes
+extern char *imagenes[] = {"./IMG/Vacio.png",
+		"./IMG/Inspector.png",
+		"./IMG/Policia.png",
+		"./IMG/Lidereza.png",
+		"./IMG/Suffragette.png"};
+
+
+
+
+
+
+
+
+
+void tablero_cb(GtkWidget *event_box, GdkEventButton *event, gpointer data){
+	guint i,j;
+	gchar *temp;
+
+	if((modo==1 && turno==1) || (modo==1 && turno==2) || (modo==2 && turno==2)){	//Juega USUARIO/S
+		i = (GUINT_FROM_LE(event->y) / 40); //las imagenes tienen son 40x40pixeles
+		j = (GUINT_FROM_LE(event->x) / 40);
+		temp = g_strdup_printf("Presiono la imagen coordenada [%d,%d]", i,j);
+		if(bandera == 0){
+			Primer_Click(bandos[turno-1], i,j);
+		}else{
+			Click_Dos(Tablero[coor[0]][coor[1]], coor[0], coor[1], i,j);
+		}
+	}
+
+
+	if((modo==2 && turno==1) || (modo==3 && turno==1) || (modo==3 && turno==2)){		//Juega COMPUTADORA/S
+		Juega_Computadora();
+	}
+
+
+
+	//gtk_label_set_text(GTK_LABEL(label_estado), temp);
+
+	if(turno==1){
+		gtk_label_set_text(GTK_LABEL(label_turno), nombre1);
+	}else{
+		gtk_label_set_text(GTK_LABEL(label_turno), nombre2);
+	}
+
+
+	g_free(temp);
+
+}
+
+
+GtkWidget *crear_tablero(){
+	int i, j;
+	GtkWidget *imagen; //auxiliar para cargar la imagen
+	GtkWidget *eventbox;
+	eventbox = GTK_WIDGET(gtk_builder_get_object(builder, "Eventos"));
+	tablero = GTK_WIDGET(gtk_builder_get_object(builder, "Grilla"));
+	for (i = 0; i < MAX_FILA; i++) {
+		for (j = 0; j < MAX_COLUMNA; j++) {
+			if( Tablero[i][j]==0 || Tablero[i][j]==5 || Tablero[i][j]==6 ){
+				imagen = gtk_image_new_from_file(imagenes[0]);
+				gtk_grid_attach(GTK_GRID(tablero), GTK_WIDGET(imagen), j, i, 1, 1);
+			}
+			if( Tablero[i][j]==1 ){
+				imagen = gtk_image_new_from_file(imagenes[1]);
+				gtk_grid_attach(GTK_GRID(tablero), GTK_WIDGET(imagen), j, i, 1, 1);
+			}
+			if( Tablero[i][j]==2 ){
+				imagen = gtk_image_new_from_file(imagenes[2]);
+				gtk_grid_attach(GTK_GRID(tablero), GTK_WIDGET(imagen), j, i, 1, 1);
+			}
+			if( Tablero[i][j]==3 ){
+				imagen = gtk_image_new_from_file(imagenes[3]);
+				gtk_grid_attach(GTK_GRID(tablero), GTK_WIDGET(imagen), j, i, 1, 1);
+			}
+			if( Tablero[i][j]==4 ){
+				imagen = gtk_image_new_from_file(imagenes[4]);
+				gtk_grid_attach(GTK_GRID(tablero), GTK_WIDGET(imagen), j, i, 1, 1);
+			}
+
+		}
+	}
+	g_signal_connect(eventbox, "button-press-event", G_CALLBACK(tablero_cb), tablero);
+	return eventbox;
+}
+
+
+void cerrar (GtkWidget *object, gpointer user_data){
+	 printf("\n\nsaludo: %s", (char*)user_data);
+	 gtk_main_quit();
+}
+
+
+
+
+
+
+
+
+
+ int main (int argc, char *argv[]) {
+
+	GObject *menu_juego_nuevo;
+	GObject *menu_juego_abrir;
+	GObject *menu_juego_guardar;
+	GObject *menu_juego_guardar_como;
+	GObject *menu_juego_salir;
+	GObject *menu_ayuda_ayuda;
+	GObject *menu_ayuda_acerca_de;
+
+
+	srand(time(NULL));		//Se utiliza srand(time(NULL)) para la obtencion de numeros aleatorios mas adelante dentro de las funciones con rand()
+
+    //Para el GtkBuilder
+    guint ret, ret2;
+
+    GError *error = NULL;
+
+    gtk_init (&argc, &argv);
+
+	builder = gtk_builder_new();
+	//Se carga el builder
+	ret = gtk_builder_add_from_file(builder, "tablero.glade", &error);
+	if(ret == 0) {
+		g_print("Error en la función gtk_builder_add_from_file:\n%s", error->message);
+		return 1;
+	}
+
+	ret2 = gtk_builder_add_from_file(builder, "Menus_Varios.glade", &error);
+	if(ret2 == 0) {
+		g_print("Error en la función gtk_builder_add_from_file:\n%s", error->message);
+		return 1;
+	}
+
+
+
+/* BARRA DE MENU. Botones*/
+
+	menu_juego_nuevo = gtk_builder_get_object(builder, "menu_juego_nuevo");
+
+	menu_juego_abrir = gtk_builder_get_object(builder, "menu_juego_abrir");
+
+	menu_juego_guardar = gtk_builder_get_object(builder, "menu_juego_guardar");
+
+	menu_juego_guardar_como = gtk_builder_get_object(builder, "menu_juego_guardar_como");
+
+	menu_juego_salir = gtk_builder_get_object(builder, "menu_juego_salir");
+	g_signal_connect (menu_juego_salir, "activate", G_CALLBACK (gtk_main_quit), NULL);
+
+	menu_ayuda_ayuda = gtk_builder_get_object(builder, "menu_ayuda_ayuda");
+	g_signal_connect (menu_ayuda_ayuda, "activate", G_CALLBACK (mostrar_reglas), NULL);
+
+	menu_ayuda_acerca_de = gtk_builder_get_object(builder, "menu_ayuda_acerca_de");
+	g_signal_connect (menu_ayuda_acerca_de, "activate", G_CALLBACK (mostrar_creditos), NULL);
+
+
+
+/*##############################################################################################################*/
+
+
+
+
+/* Ventana Jugar. Iniciar una Nueva Partida o Continuar una Partida previa */
+	v_jugar = GTK_WIDGET(gtk_builder_get_object(builder, "V_Jugar"));
+
+	nuevo_juego = GTK_WIDGET(gtk_builder_get_object(builder, "JN_btn"));
+	g_signal_connect (nuevo_juego, "clicked", G_CALLBACK (Juego_Nuevo), NULL);
+
+	continuar_juego = GTK_WIDGET(gtk_builder_get_object(builder, "Cont_btn"));
+
+	atras_btn = GTK_WIDGET(gtk_builder_get_object(builder, "Atras_btn"));
+	g_signal_connect (atras_btn, "clicked", G_CALLBACK (btn_atras_en_jugar), NULL);
+
+/*##############################################################################################################*/
+
+
+
+
+/* Ventana Seleccion Modo de Juego. Usuario vs. Usuario ,  Usuario vs. PC.  o  PC vs. PC   */
+	vtn_modo_juego = GTK_WIDGET(gtk_builder_get_object(builder, "Modo_Juego"));
+
+	btn_a1 = GTK_WIDGET(gtk_builder_get_object(builder, "B_modo1"));
+	g_signal_connect (btn_a1, "clicked", G_CALLBACK (modo_uno), NULL);
+
+	btn_a2 = GTK_WIDGET(gtk_builder_get_object(builder, "B_modo2"));
+	g_signal_connect (btn_a2, "clicked", G_CALLBACK (modo_dos), NULL);
+
+	btn_a3 = GTK_WIDGET(gtk_builder_get_object(builder, "B_modo3"));
+	g_signal_connect (btn_a3, "clicked", G_CALLBACK (modo_tres), NULL);
+
+	btn_next1 = GTK_WIDGET(gtk_builder_get_object(builder, "Siguiente_3"));
+	g_signal_connect (btn_next1, "clicked", G_CALLBACK (siguiente_en_modo_juego), NULL);
+
+/*##############################################################################################################*/
+
+
+
+
+/* Labels auxiliares para ventana de eleccion de bandos, caso PC vs. PC */
+
+	mensaje_modo_select = GTK_WIDGET(gtk_builder_get_object(builder, "label_modo_select"));
+	mensaje_bando_select = GTK_WIDGET(gtk_builder_get_object(builder, "label_bando_select"));
+	mensaje_turno_select = GTK_WIDGET(gtk_builder_get_object(builder, "label_turno_select"));
+	label_jug1 = GTK_WIDGET(gtk_builder_get_object(builder, "Jug1_label"));
+	label_jug2 = GTK_WIDGET(gtk_builder_get_object(builder, "Jug2_label"));
+	mensaje_v_bandos = GTK_WIDGET(gtk_builder_get_object(builder, "Mensaje_Seleccion"));
+
+
+/*##############################################################################################################*/
+
+
+
+/* Ventana nombres. Darle nombres a los Jugadores */
+	v_nombres = GTK_WIDGET(gtk_builder_get_object(builder, "V_Nombres"));
+	sgtn_B = GTK_WIDGET(gtk_builder_get_object(builder, "Siguiente_4"));
+	g_signal_connect (sgtn_B, "clicked", G_CALLBACK (siguiente_en_v_nombres), NULL);
+
+
+
+	nombre_1 = GTK_WIDGET(gtk_builder_get_object(builder, "J1_entry"));
+	nombre_2 = GTK_WIDGET(gtk_builder_get_object(builder, "J2_entry"));
+
+
+/*##############################################################################################################*/
+
+
+
+/* Ventana Reglas. Muestra las reglas del Juego */
+	v_reglas = GTK_WIDGET(gtk_builder_get_object(builder, "V_Reglas"));
+	cerrar_reglas = GTK_WIDGET(gtk_builder_get_object(builder, "Reglas_c"));
+	g_signal_connect (cerrar_reglas, "clicked", G_CALLBACK (ocultar_reglas), NULL);
+
+
+/*##############################################################################################################*/
+
+
+
+/* Ventana Estadisticas. Muestra el ranking de todos los que han jugado */
+	v_estadisticas = GTK_WIDGET(gtk_builder_get_object(builder, "V_Estadisticas"));
+
+
+/*##############################################################################################################*/
+
+
+
+/* Ventana Creditos. Muestra los creditos del juego */
+	v_creditos = GTK_WIDGET(gtk_builder_get_object(builder, "V_Creditos"));
+	cerrar_credits = GTK_WIDGET(gtk_builder_get_object(builder, "Credits_c"));
+	g_signal_connect (cerrar_credits, "clicked", G_CALLBACK (ocultar_creditos), NULL);
+
+
+/*##############################################################################################################*/
+
+
+
+
+/* MENU PRINCIPAL */
+	principal = GTK_WIDGET(gtk_builder_get_object(builder, "Menu_Principal"));
+	gtk_widget_show_all(principal);
+
+	jugar_btn = GTK_WIDGET(gtk_builder_get_object(builder, "B_Jugar"));
+	g_signal_connect (jugar_btn, "clicked", G_CALLBACK (ventana_jugar), NULL);
+
+	reglas_btn1 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Reglas"));
+	g_signal_connect (reglas_btn1, "clicked", G_CALLBACK (mostrar_reglas), NULL);
+
+	estat_btn1 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Estadisticas"));
+
+	creditos_btn1 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Creditos"));
+	g_signal_connect (creditos_btn1, "clicked", G_CALLBACK (mostrar_creditos), NULL);
+
+	salir_btn = GTK_WIDGET(gtk_builder_get_object(builder, "B_Salir"));
+	g_signal_connect (salir_btn, "clicked", G_CALLBACK (gtk_main_quit), NULL);
+
+/*##############################################################################################################*/
+
+
+
+	//Ventana principal
+	window = GTK_WIDGET(gtk_builder_get_object(builder, "ventana"));
+
+	//Box donde estara el Tablero
+	box_tablero = GTK_WIDGET(gtk_builder_get_object(builder, "box_tablero"));
+
+	//Labels
+	label_turno = GTK_WIDGET(gtk_builder_get_object(builder, "label_turno"));
+	label_estado = GTK_WIDGET(gtk_builder_get_object(builder, "label_estado"));
+
+	nom_jug_y = GTK_WIDGET(gtk_builder_get_object(builder, "nom_jug_y"));
+	nom_jug_x = GTK_WIDGET(gtk_builder_get_object(builder, "nom_jug_x"));
+
+	Boton_Siguiente = GTK_WIDGET(gtk_builder_get_object(builder, "Boton_siguiente"));
+	g_signal_connect (Boton_Siguiente, "clicked", G_CALLBACK (Boton_Siguiente_en_el_Juego), NULL);
+
+
+/*##############################################################################################################*/
+
+
+
+
+/* Ventana Eleccion de Bandos con sus respectivos botones */
+	vtn_bando = GTK_WIDGET(gtk_builder_get_object(builder, "Eleccion_Bando"));
+	btn_b1 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Suffragetto"));
+		g_signal_connect (btn_b1, "clicked", G_CALLBACK (clicked_bando_suffragetto), NULL);
+
+	btn_b2 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Policia"));
+		g_signal_connect (btn_b2, "clicked", G_CALLBACK (clicked_bando_policia), NULL);
+
+	btn_b3 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Aleatorio"));
+		g_signal_connect (btn_b3, "clicked", G_CALLBACK (clicked_bando_aleatorio), NULL);
+
+	btn_next2 = GTK_WIDGET(gtk_builder_get_object(builder, "Siguiente_1"));
+		g_signal_connect (btn_next2, "clicked", G_CALLBACK (clicked_siguiente), NULL);
+
+/*##############################################################################################################*/
+
+
+
+/* Ventana Eleccion de turnos con sus respectivos botones */
+	vtn_turno = GTK_WIDGET(gtk_builder_get_object(builder, "Eleccion_Turno"));
+	btn_c1 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Jugador1"));
+		g_signal_connect (btn_c1, "clicked", G_CALLBACK (clicked_comienza_jugador_1), NULL);
+
+	btn_c2 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Jugador2"));
+		g_signal_connect (btn_c2, "clicked", G_CALLBACK (clicked_comienza_jugador_2), NULL);
+
+	btn_c3 = GTK_WIDGET(gtk_builder_get_object(builder, "B_Aleatorio2"));
+		g_signal_connect (btn_c3, "clicked", G_CALLBACK (clicked_comienza_aleatorio), NULL);
+
+	btn_next3 = GTK_WIDGET(gtk_builder_get_object(builder, "Siguiente_2"));
+		g_signal_connect (btn_next3, "clicked", G_CALLBACK (clicked_siguiente), NULL);
+
+/*##############################################################################################################*/
+
+
+	gtk_box_pack_start(GTK_BOX(box_tablero), crear_tablero(), TRUE, FALSE, 20);
+
+    /* Connect the destroy signal of the window to gtk_main_quit
+     * When the window is about to be destroyed we get a notification and
+     * stop the main GTK+ loop
+     */
+	char mensaje[20] = "hola que tal";
+    g_signal_connect (window, "destroy", G_CALLBACK (cerrar), mensaje);
+
+    /* make sure that everything, window and label, are visible */
+    //gtk_widget_show_all (vtn_bando);
+
+    /* start the main loop, and let it rest there until the application is closed */
+    gtk_main ();
+
+    return 0;
+ }
+
+

@@ -1,0 +1,148 @@
+20:43:14 **** Incremental Build of configuration Debug for project GTKTablero ****
+make all 
+Building file: ../src/Funciones_Suffrag.c
+Invoking: GCC C Compiler
+gcc -I/usr/include/gtk-3.0/unix-print -I/usr/include/gio-unix-2.0 -I/usr/include/fribidi -I/usr/include/uuid -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gio-unix-2.0/ -I/usr/include/mirclient -I/usr/include/mircommon -I/usr/include/mircookie -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/Funciones_Suffrag.d" -MT"src/Funciones_Suffrag.o" -o "src/Funciones_Suffrag.o" "../src/Funciones_Suffrag.c"
+../src/Funciones_Suffrag.c: In function ‘limite_movimiento’:
+../src/Funciones_Suffrag.c:134:1: warning: control reaches end of non-void function [-Wreturn-type]
+  134 | }
+      | ^
+../src/Funciones_Suffrag.c: In function ‘verificar_vacia’:
+../src/Funciones_Suffrag.c:292:1: warning: control reaches end of non-void function [-Wreturn-type]
+  292 | }
+      | ^
+../src/Funciones_Suffrag.c: In function ‘verificar_bando’:
+../src/Funciones_Suffrag.c:342:1: warning: control reaches end of non-void function [-Wreturn-type]
+  342 | }
+      | ^
+../src/Funciones_Suffrag.c: In function ‘aux_salto’:
+../src/Funciones_Suffrag.c:428:1: warning: control reaches end of non-void function [-Wreturn-type]
+  428 | }
+      | ^
+../src/Funciones_Suffrag.c: In function ‘Movimiento’:
+../src/Funciones_Suffrag.c:614:1: warning: control reaches end of non-void function [-Wreturn-type]
+  614 | }
+      | ^
+Finished building: ../src/Funciones_Suffrag.c
+ 
+Building file: ../src/GTKTablero.c
+Invoking: GCC C Compiler
+gcc -I/usr/include/gtk-3.0/unix-print -I/usr/include/gio-unix-2.0 -I/usr/include/fribidi -I/usr/include/uuid -I/usr/include/libpng16 -I/usr/include/libmount -I/usr/include/blkid -I/usr/include/gtk-3.0 -I/usr/include/at-spi2-atk/2.0 -I/usr/include/at-spi-2.0 -I/usr/include/dbus-1.0 -I/usr/lib/x86_64-linux-gnu/dbus-1.0/include -I/usr/include/gio-unix-2.0/ -I/usr/include/mirclient -I/usr/include/mircommon -I/usr/include/mircookie -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/harfbuzz -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/freetype2 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/GTKTablero.d" -MT"src/GTKTablero.o" -o "src/GTKTablero.o" "../src/GTKTablero.c"
+../src/GTKTablero.c: In function ‘Juego_Nuevo’:
+../src/GTKTablero.c:141:18: warning: passing argument 1 of ‘gtk_widget_hide’ from incompatible pointer type [-Wincompatible-pointer-types]
+  141 |  gtk_widget_hide(v_jugar);
+      |                  ^~~~~~~
+      |                  |
+      |                  GtkDialog * {aka struct _GtkDialog *}
+In file included from /usr/include/gtk-3.0/gtk/gtkapplication.h:27,
+                 from /usr/include/gtk-3.0/gtk/gtkwindow.h:33,
+                 from /usr/include/gtk-3.0/gtk/gtkdialog.h:32,
+                 from /usr/include/gtk-3.0/gtk/gtkaboutdialog.h:30,
+                 from /usr/include/gtk-3.0/gtk/gtk.h:31,
+                 from ../src/GTKTablero.c:11:
+/usr/include/gtk-3.0/gtk/gtkwidget.h:628:65: note: expected ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} but argument is of type ‘GtkDialog *’ {aka ‘struct _GtkDialog *’}
+  628 | void       gtk_widget_hide                (GtkWidget           *widget);
+      |                                            ~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../src/GTKTablero.c: In function ‘btn_atras_en_jugar’:
+../src/GTKTablero.c:180:18: warning: passing argument 1 of ‘gtk_widget_hide’ from incompatible pointer type [-Wincompatible-pointer-types]
+  180 |  gtk_widget_hide(v_jugar);
+      |                  ^~~~~~~
+      |                  |
+      |                  GtkDialog * {aka struct _GtkDialog *}
+In file included from /usr/include/gtk-3.0/gtk/gtkapplication.h:27,
+                 from /usr/include/gtk-3.0/gtk/gtkwindow.h:33,
+                 from /usr/include/gtk-3.0/gtk/gtkdialog.h:32,
+                 from /usr/include/gtk-3.0/gtk/gtkaboutdialog.h:30,
+                 from /usr/include/gtk-3.0/gtk/gtk.h:31,
+                 from ../src/GTKTablero.c:11:
+/usr/include/gtk-3.0/gtk/gtkwidget.h:628:65: note: expected ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} but argument is of type ‘GtkDialog *’ {aka ‘struct _GtkDialog *’}
+  628 | void       gtk_widget_hide                (GtkWidget           *widget);
+      |                                            ~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../src/GTKTablero.c: In function ‘ocultar_reglas’:
+../src/GTKTablero.c:215:18: warning: passing argument 1 of ‘gtk_widget_hide’ from incompatible pointer type [-Wincompatible-pointer-types]
+  215 |  gtk_widget_hide(v_reglas);
+      |                  ^~~~~~~~
+      |                  |
+      |                  GtkDialog * {aka struct _GtkDialog *}
+In file included from /usr/include/gtk-3.0/gtk/gtkapplication.h:27,
+                 from /usr/include/gtk-3.0/gtk/gtkwindow.h:33,
+                 from /usr/include/gtk-3.0/gtk/gtkdialog.h:32,
+                 from /usr/include/gtk-3.0/gtk/gtkaboutdialog.h:30,
+                 from /usr/include/gtk-3.0/gtk/gtk.h:31,
+                 from ../src/GTKTablero.c:11:
+/usr/include/gtk-3.0/gtk/gtkwidget.h:628:65: note: expected ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} but argument is of type ‘GtkDialog *’ {aka ‘struct _GtkDialog *’}
+  628 | void       gtk_widget_hide                (GtkWidget           *widget);
+      |                                            ~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../src/GTKTablero.c: In function ‘siguiente_en_v_nombres’:
+../src/GTKTablero.c:263:18: warning: passing argument 1 of ‘gtk_widget_hide’ from incompatible pointer type [-Wincompatible-pointer-types]
+  263 |  gtk_widget_hide(v_nombres);
+      |                  ^~~~~~~~~
+      |                  |
+      |                  GtkDialog * {aka struct _GtkDialog *}
+In file included from /usr/include/gtk-3.0/gtk/gtkapplication.h:27,
+                 from /usr/include/gtk-3.0/gtk/gtkwindow.h:33,
+                 from /usr/include/gtk-3.0/gtk/gtkdialog.h:32,
+                 from /usr/include/gtk-3.0/gtk/gtkaboutdialog.h:30,
+                 from /usr/include/gtk-3.0/gtk/gtk.h:31,
+                 from ../src/GTKTablero.c:11:
+/usr/include/gtk-3.0/gtk/gtkwidget.h:628:65: note: expected ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} but argument is of type ‘GtkDialog *’ {aka ‘struct _GtkDialog *’}
+  628 | void       gtk_widget_hide                (GtkWidget           *widget);
+      |                                            ~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../src/GTKTablero.c: In function ‘siguiente_en_modo_juego’:
+../src/GTKTablero.c:336:23: warning: passing argument 1 of ‘gtk_widget_show_all’ from incompatible pointer type [-Wincompatible-pointer-types]
+  336 |   gtk_widget_show_all(v_nombres);
+      |                       ^~~~~~~~~
+      |                       |
+      |                       GtkDialog * {aka struct _GtkDialog *}
+In file included from /usr/include/gtk-3.0/gtk/gtkapplication.h:27,
+                 from /usr/include/gtk-3.0/gtk/gtkwindow.h:33,
+                 from /usr/include/gtk-3.0/gtk/gtkdialog.h:32,
+                 from /usr/include/gtk-3.0/gtk/gtkaboutdialog.h:30,
+                 from /usr/include/gtk-3.0/gtk/gtk.h:31,
+                 from ../src/GTKTablero.c:11:
+/usr/include/gtk-3.0/gtk/gtkwidget.h:632:65: note: expected ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} but argument is of type ‘GtkDialog *’ {aka ‘struct _GtkDialog *’}
+  632 | void       gtk_widget_show_all            (GtkWidget           *widget);
+      |                                            ~~~~~~~~~~~~~~~~~~~~~^~~~~~
+../src/GTKTablero.c: At top level:
+../src/GTKTablero.c:419:14: warning: ‘imagenes’ initialized and declared ‘extern’
+  419 | extern char *imagenes[] = {"./IMG/Vacio.png",
+      |              ^~~~~~~~
+../src/GTKTablero.c: In function ‘tablero_cb’:
+../src/GTKTablero.c:435:6: warning: variable ‘m’ set but not used [-Wunused-but-set-variable]
+  435 |  int m;
+      |      ^
+../src/GTKTablero.c: In function ‘main’:
+../src/GTKTablero.c:575:10: warning: assignment to ‘GtkDialog *’ {aka ‘struct _GtkDialog *’} from incompatible pointer type ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} [-Wincompatible-pointer-types]
+  575 |  v_jugar = GTK_WIDGET(gtk_builder_get_object(builder, "V_Jugar"));
+      |          ^
+../src/GTKTablero.c:625:12: warning: assignment to ‘GtkDialog *’ {aka ‘struct _GtkDialog *’} from incompatible pointer type ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} [-Wincompatible-pointer-types]
+  625 |  v_nombres = GTK_WIDGET(gtk_builder_get_object(builder, "V_Nombres"));
+      |            ^
+../src/GTKTablero.c:640:11: warning: assignment to ‘GtkDialog *’ {aka ‘struct _GtkDialog *’} from incompatible pointer type ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} [-Wincompatible-pointer-types]
+  640 |  v_reglas = GTK_WIDGET(gtk_builder_get_object(builder, "V_Reglas"));
+      |           ^
+../src/GTKTablero.c:650:17: warning: assignment to ‘GtkDialog *’ {aka ‘struct _GtkDialog *’} from incompatible pointer type ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} [-Wincompatible-pointer-types]
+  650 |  v_estadisticas = GTK_WIDGET(gtk_builder_get_object(builder, "V_Estadisticas"));
+      |                 ^
+../src/GTKTablero.c:659:14: warning: assignment to ‘GtkDialog *’ {aka ‘struct _GtkDialog *’} from incompatible pointer type ‘GtkWidget *’ {aka ‘struct _GtkWidget *’} [-Wincompatible-pointer-types]
+  659 |  v_acerca_de = GTK_WIDGET(gtk_builder_get_object(builder, "V_Acerca_de"));
+      |              ^
+../src/GTKTablero.c:517:11: warning: variable ‘menu_juego_guardar_como’ set but not used [-Wunused-but-set-variable]
+  517 |  GObject *menu_juego_guardar_como;
+      |           ^~~~~~~~~~~~~~~~~~~~~~~
+../src/GTKTablero.c:516:11: warning: variable ‘menu_juego_guardar’ set but not used [-Wunused-but-set-variable]
+  516 |  GObject *menu_juego_guardar;
+      |           ^~~~~~~~~~~~~~~~~~
+../src/GTKTablero.c:515:11: warning: variable ‘menu_juego_abrir’ set but not used [-Wunused-but-set-variable]
+  515 |  GObject *menu_juego_abrir;
+      |           ^~~~~~~~~~~~~~~~
+../src/GTKTablero.c:514:11: warning: variable ‘menu_juego_nuevo’ set but not used [-Wunused-but-set-variable]
+  514 |  GObject *menu_juego_nuevo;
+      |           ^~~~~~~~~~~~~~~~
+Finished building: ../src/GTKTablero.c
+ 
+Building target: GTKTablero
+Invoking: GCC C Linker
+gcc  -o "GTKTablero"  ./src/Funciones_Suffrag.o ./src/GTKTablero.o   -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lpng16 -lz -lblkid -lfontconfig -lfreetype -lharfbuzz -lgtk-3 -lgdk-3 -lpangocairo-1.0 -lpango-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0
+Finished building target: GTKTablero
+ 
